@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Tracker</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    body{
+        background-color:#ddc7f0;
+    }
+    #expenses {
+        margin-top: 20px;
+    }
+    h2{
+        text-align:center;
+        background-color: #bab0c2;
+    }
+    button{
+        background-color:#d7b2f7;
+    }
+</style>
+</head>
+<body>
+
+<h2><b>Expense Tracker</b></h2>
+<div class="container-fluid">
+<input type="text" id="expenseInput" placeholder="Enter Expense">
+<button id="addExpense">Add Expense</button>
+
+<div id="expenses">
+    <h3>Expenses List</h3>
+    <ul id="expenseList">
+        
+    </ul>
+    <p id="totalExpense">Total Expense: Rs.0</p>
+</div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        let totalExpense = 0;
+
+        $("#addExpense").click(function(){
+            let expense = $("#expenseInput").val();
+            if(expense !== ""){
+                totalExpense += parseFloat(expense);
+                $("#expenseList").append("<li>Rs." + expense + "</li>");
+                $("#totalExpense").text("Total Expense: Rs." + totalExpense.toFixed(2));
+                $("#expenseInput").val("");
+            } else {
+                alert("Please enter a valid expense amount.");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

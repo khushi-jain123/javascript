@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menti Quiz</title>
+<style>body {
+  font-family: Arial, sans-serif;
+   background-color: #a1dfed;
+}
+h1{
+  text-align:center;
+  background-color: #91b3ba;
+
+}
+button{
+  background-color:#95bac2 ;
+}
+
+#quiz-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#choices {
+  list-style-type: none;
+  padding: 0;
+}
+ #choices li {
+  margin-bottom: 10px;
+}
+
+#submit-btn {
+  margin-top: 10px;
+}
+
+#feedback {
+  margin-top: 20px;
+}
+
+ </style>
+</head>
+<body>
+  <h1><i><u>Welcome to menti quiz!</u></i></h1>
+<h1><b><u>SQL Quiz</u></b></h1>
+<div id="quiz-container-fluid">
+  <h2 id="question">Question goes here</h2>
+  <ul id="choices"></ul>
+  <button id="submit-btn">Submit</button>
+  <p id="feedback"></p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+  const questions = [
+    {
+      question: "1.Which SQL statement is used to retrieve all records from a table named customer?",
+      choices: ["SELECT * FROM customers;",
+                "GET ALL FROM customers;",
+                "RETRIEVE FROM customers WHERE *;",
+                "FETCH * FROM customers;"],
+      correctAnswer: "SELECT * FROM customers;"
+    },
+    {
+      question: "2.Which SQL statement is used to update the age column to 30 for the record where name is 'John' in a table named users?",
+      choices: ["UPDATE users SET age = 30 WHERE name = 'John';",
+                "MODIFY users SET age = 30 WHERE name = 'John';",
+                "ALTER users SET age = 30 WHERE name = 'John';",
+                "CHANGE users SET age = 30 WHERE name = 'John';"],
+      correctAnswer: "UPDATE users SET age = 30 WHERE name = 'John';"
+    },
+    {
+      question: "3.Which SQL statement is used to delete all records from a table named orders?",
+      choices: ["DELETE FROM orders;",
+                "REMOVE * FROM orders;",
+                "DROP FROM orders;",
+                "TRUNCATE TABLE orders;"],
+      correctAnswer: "DELETE FROM orders;"
+    },
+    {
+      question: "4.Which SQL statement is used to retrieve distinct values from a column named category in a table named products?",
+      choices: ["SELECT DISTINCT category FROM products;",
+                "GET DISTINCT category FROM products;",
+                "FILTER DISTINCT category FROM products;",
+                "RETRIEVE UNIQUE category FROM products;"],
+      correctAnswer: "SELECT DISTINCT category FROM products;"
+    },
+     {
+      question: "5.Which SQL statement is used to retrieve records from a table named 'employees' where the 'salary' column is greater than 50000?",
+      choices: ["SELECT * FROM employees WHERE salary > 50000;",
+                "GET * FROM employees WHERE salary > 50000;",
+                "RETRIEVE * FROM employees WHERE salary > 50000;",
+                "FETCH * FROM employees WHERE salary > 50000;"],
+      correctAnswer: "SELECT * FROM employees WHERE salary > 50000;"
+    },
+    {
+      question: "6.Which SQL statement is used to retrieve the number of records in a table named students?",
+      choices: ["SELECT COUNT(*) FROM students;",
+                "GET COUNT(*) FROM students;",
+                "RETRIEVE COUNT(*) FROM students;",
+                "FETCH COUNT(*) FROM students;"],
+      correctAnswer: "SELECT COUNT(*) FROM students;"
+    }
+    ];
+
+  let currentQuestion = 0;
+  const totalQuestions = questions.length;
+  const quizContainer = $("#quiz-container");
+  const questionElement = $("#question");
+  const choicesElement = $("#choices");
+  const feedbackElement = $("#feedback");
+
+  function showQuestion() {
+    const q = questions[currentQuestion];
+    questionElement.text(q.question);
+    choicesElement.empty();
+    for (let i = 0; i < q.choices.length; i++) {
+      choicesElement.append(`<li><input type="radio" name="choice" value="${q.choices[i]}">${q.choices[i]}</li>`);
+    }
+  }
+  function checkAnswer() {
+    const selectedChoice = $("input[name='choice']:checked").val();
+    if (selectedChoice === undefined) {
+      feedbackElement.text("Please select an answer.");
+      return;
+    }
+    if (selectedChoice === questions[currentQuestion].correctAnswer) {
+      feedbackElement.text("Correct! last Question");
+    } else {
+      feedbackElement.text(`Incorrect last question!. The correct answer is ${questions[currentQuestion].correctAnswer}.`);
+    }
+    currentQuestion++;
+    if (currentQuestion < totalQuestions) {
+      showQuestion();
+    } else {
+      quizContainer.hide();
+      feedbackElement.text(`Quiz completed. You scored ${currentQuestion}/${totalQuestions}.`);
+    }
+  }
+
+  $("#submit-btn").click(function() {
+    checkAnswer();
+  });
+   showQuestion();
+});
+</script>
+</body>
+</html>

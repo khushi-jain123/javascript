@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator</title>
+<style>
+  body{
+    background-color: #8eb2bd;
+  }
+  #calculator {
+    max-width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #aad6e3;
+    border-radius: 5px;
+    background-color: #aad6e3;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+
+  #calculate-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  #height,#weight{
+    margin-top:20px;
+    margin-bottom:20px;
+    
+  }
+</style>
+</head>
+<body>
+
+<div id="calculator" class="Container">
+  <h2><b>BMI calculator</b></h2>
+  <label for="height">Height (cm):</label>
+  <input type="number" id="height" placeholder="Height in cm"><br>
+  <label for="weight">Weight (kg):</label>
+  <input type="number" id="weight" placeholder="Weight in kg"><br>
+  <button id="calculate-btn">Calculate BMI</button>
+  <div id="result"></div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("calculate-btn").addEventListener("click", function() {
+      var height = parseFloat(document.getElementById("height").value);
+      var weight = parseFloat(document.getElementById("weight").value);
+      
+      if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+        document.getElementById("result").textContent = "Please enter valid height and weight.";
+      } else {
+        var bmi = calculateBMI(height, weight);
+        document.getElementById("result").textContent = "Your BMI is: " + bmi.toFixed(2);
+      }
+    });
+
+    function calculateBMI(height, weight) {
+      var heightInMeters = height / 100;
+      return weight / (heightInMeters * heightInMeters);
+    }
+  });
+</script>
+
+</body>
+</html>
